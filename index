@@ -3,464 +3,799 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Sarah Amani — NHS Digital Health Leader, RMN, Clinical Informatics. Position paper on values-anchored AI governance for the NHS."/>
+<meta name="description" content="Sarah Amani — NHS Digital Health Leader, RMN. Position paper on values-anchored AI governance for the NHS."/>
 <meta property="og:title" content="Sarah Amani — NHS Digital Health Leader"/>
-<meta property="og:description" content="Grounding AI Governance in What NHS Organisations Already Know: A Values-Anchored Framework."/>
+<meta property="og:description" content="Grounding AI Governance in What NHS Organisations Already Know."/>
 <meta property="og:type" content="website"/>
 <title>Sarah Amani — NHS Digital Health Leader</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-/* ── reset & tokens ─────────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --deep:#262B40;
-  --navy:#06457F;
-  --blue:#0474C4;
-  --teal:#0474C4;
-  --teal-pale:#EBF2FB;
-  --cream:#F2F6FC;
-  --paper:#F8FAFD;
-  --ink:#262B40;
-  --muted:#5379AE;
-  --rule:#C4D6EE;
-  --gold:#5379AE;
-  --warn:#92650A;
-  --warn-bg:#FFF8ED;
-  --serif:'Playfair Display',Georgia,serif;
-  --body:'Source Serif 4',Georgia,serif;
-  --mono:'DM Mono',monospace;
-  --max:780px;
-  --wide:1100px;
-}
-html{scroll-behavior:smooth;font-size:18px}
-body{
-  background:var(--paper);
-  color:var(--ink);
-  font-family:var(--body);
-  font-size:1rem;
-  line-height:1.75;
-  -webkit-font-smoothing:antialiased;
+/* ─────────────────────────────────────────────────────
+   TOKENS — Sapphire Nightfall Whisper
+───────────────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --c-vivid:    #0474C4;
+  --c-slate:    #5379AE;
+  --c-forest:   #2C444C;
+  --c-sky:      #A8C4EC;
+  --c-deep:     #06457F;
+  --c-night:    #262B40;
+
+  /* Semantic */
+  --bg:         #F7F9FC;
+  --bg-paper:   #FFFFFF;
+  --bg-dark:    #262B40;
+  --bg-mid:     #06457F;
+  --text-primary:   #1A1F35;
+  --text-secondary: #5379AE;
+  --text-muted:     #8899BB;
+  --text-inverse:   #FFFFFF;
+  --text-dim:       rgba(255,255,255,0.55);
+  --border:         rgba(83,121,174,0.18);
+  --border-strong:  rgba(83,121,174,0.35);
+
+  /* Typography */
+  --serif:  'Playfair Display', Georgia, serif;
+  --sans:   'Inter', system-ui, sans-serif;
+  --mono:   'DM Mono', monospace;
+
+  /* Emil easing curves */
+  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --max: 720px;
+  --wide: 1080px;
 }
 
-/* ── progress bar ───────────────────────────────────────────── */
-#progress{
-  position:fixed;top:0;left:0;height:3px;
-  background:linear-gradient(90deg,var(--blue),var(--navy));
-  width:0%;z-index:1000;transition:width .1s linear;
+/* ─────────────────────────────────────────────────────
+   RESET
+───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 17px; }
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* ── nav ────────────────────────────────────────────────────── */
-nav{
-  position:sticky;top:0;z-index:99;
-  background:rgba(253,251,248,.92);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--rule);
-  padding:.75rem 2rem;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.nav-name{
-  font-family:var(--mono);font-size:.75rem;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--navy);
-  font-weight:500;text-decoration:none;
-}
-.nav-links{display:flex;gap:1.5rem;align-items:center}
-.nav-links a{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);text-decoration:none;
-  transition:color .2s;
-}
-.nav-links a:hover{color:var(--teal)}
-.nav-badge{
-  background:var(--teal);color:#fff;
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;
-  padding:.25rem .6rem;border-radius:2px;text-transform:uppercase;
-  white-space:nowrap;
+/* ─────────────────────────────────────────────────────
+   PROGRESS BAR — only animate opacity+transform
+───────────────────────────────────────────────────── */
+#bar {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 200;
+  background: linear-gradient(90deg, var(--c-vivid), var(--c-sky));
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 80ms linear;
+  will-change: transform;
 }
 
-/* ── hero ───────────────────────────────────────────────────── */
-.hero{
-  background:var(--deep);
-  padding:6rem 2rem 5rem;
-  position:relative;overflow:hidden;
+/* ─────────────────────────────────────────────────────
+   NAV
+───────────────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(247,249,252,0.88);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(4,116,196,.14) 0%,transparent 70%),
-             radial-gradient(ellipse 60% 80% at 10% 80%,rgba(83,121,174,.18) 0%,transparent 60%);
+.nav-name {
+  font-family: var(--mono); font-size: 0.72rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--c-deep); text-decoration: none; font-weight: 500;
 }
-.hero-inner{
-  max-width:var(--wide);margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:4rem;
-  align-items:center;position:relative;z-index:1;
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-link {
+  font-family: var(--mono); font-size: 0.67rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none;
+  transition: color 180ms ease;
 }
-.hero-text{}
-.hero-tag{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;
-  display:flex;align-items:center;gap:.75rem;
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover { color: var(--c-vivid); }
 }
-.hero-tag::before{content:'';display:block;width:32px;height:1px;background:var(--teal);}
-.hero h1{
-  font-family:var(--serif);font-size:clamp(2.6rem,5vw,4rem);
-  font-weight:900;line-height:1.05;color:#fff;
-  margin-bottom:1rem;
+.nav-pill {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--c-vivid); color: #fff;
+  padding: 0.3rem 0.75rem; border-radius: 100px;
+  text-decoration: none;
+  transition: background 160ms ease, transform 160ms var(--ease-out);
 }
-.hero h1 span{color:var(--teal);font-style:italic;}
-.hero-sub{
-  font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;
-  color:rgba(255,255,255,.45);text-transform:uppercase;
-  margin-bottom:2rem;line-height:1.8;
+@media (hover: hover) and (pointer: fine) {
+  .nav-pill:hover { background: var(--c-deep); }
 }
-.hero-links{display:flex;gap:1rem;flex-wrap:wrap;}
-.btn{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.65rem 1.25rem;border-radius:3px;
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;
-  text-transform:uppercase;text-decoration:none;transition:all .2s;font-weight:500;
+.nav-pill:active { transform: scale(0.97); }
+
+/* ─────────────────────────────────────────────────────
+   HERO
+───────────────────────────────────────────────────── */
+.hero {
+  background: var(--bg-dark);
+  padding: 7rem 2rem 6rem;
+  position: relative; overflow: hidden;
 }
-.btn-primary{background:var(--teal);color:#fff;}
-.btn-primary:hover{background:#1A87D4;}
-.btn-ghost{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);}
-.btn-ghost:hover{border-color:var(--teal);color:var(--teal);}
-.hero-stats{
-  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;
+/* Geometric background — pure CSS, no JS, no animation overhead */
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 75% 30%, rgba(4,116,196,0.2) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 70% at 15% 75%, rgba(83,121,174,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 85% 80%, rgba(44,68,76,0.3) 0%, transparent 55%);
+  pointer-events: none;
 }
-.stat-card{
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-  border-radius:6px;padding:1.5rem;
+/* Subtle grid texture */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(168,196,236,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,196,236,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
 }
-.stat-card .number{
-  font-family:var(--serif);font-size:2.5rem;font-weight:700;
-  color:var(--teal);line-height:1;margin-bottom:.25rem;
+.hero-inner {
+  max-width: var(--wide); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+  position: relative; z-index: 1;
 }
-.stat-card .label{
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;
-  text-transform:uppercase;color:rgba(255,255,255,.45);
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-sky); margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block;
+  width: 24px; height: 1px; background: var(--c-sky);
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 5.5vw, 4.5rem);
+  font-weight: 900; line-height: 1.0;
+  color: #fff; margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.hero h1 em {
+  font-style: italic; color: var(--c-sky);
+}
+.hero-sub {
+  font-family: var(--mono); font-size: 0.72rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-dim); line-height: 2; margin-bottom: 2.5rem;
+}
+.hero-ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.7rem 1.4rem; border-radius: 4px;
+  text-decoration: none; font-weight: 500;
+  transition: background 160ms ease, color 160ms ease, transform 160ms var(--ease-out);
+}
+.btn:active { transform: scale(0.97); }
+.btn-solid {
+  background: var(--c-vivid); color: #fff;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-solid:hover { background: #0585DC; }
+}
+.btn-outline {
+  border: 1px solid rgba(168,196,236,0.3);
+  color: rgba(255,255,255,0.7);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-outline:hover { border-color: var(--c-sky); color: var(--c-sky); }
 }
 
-/* ── section wrappers ───────────────────────────────────────── */
-section{padding:5rem 2rem;}
-.section-inner{max-width:var(--max);margin:0 auto;}
-.section-wide{max-width:var(--wide);margin:0 auto;}
-
-/* ── about ──────────────────────────────────────────────────── */
-.about{background:var(--cream);}
-.section-label{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;
-  display:flex;align-items:center;gap:.75rem;
+/* Stats grid — right column */
+.stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: rgba(168,196,236,0.12);
+  border: 1px solid rgba(168,196,236,0.12);
+  border-radius: 8px; overflow: hidden;
 }
-.section-label::after{content:'';flex:1;height:1px;background:var(--teal);opacity:.3;}
-.about h2{
-  font-family:var(--serif);font-size:2rem;font-weight:700;
-  margin-bottom:1.5rem;line-height:1.25;color:var(--navy);
+.stat {
+  background: rgba(6,69,127,0.5);
+  padding: 1.75rem 1.5rem;
+  position: relative; overflow: hidden;
 }
-.about p{margin-bottom:1.25rem;color:var(--ink);}
-.credential-row{
-  display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem;
+.stat::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(168,196,236,0.3), transparent);
 }
-.cred{
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;
-  text-transform:uppercase;padding:.3rem .75rem;
-  border:1px solid var(--navy);color:var(--navy);border-radius:2px;
+.stat-num {
+  font-family: var(--serif);
+  font-size: 2.8rem; font-weight: 900;
+  color: var(--c-sky); line-height: 1;
+  margin-bottom: 0.35rem;
 }
-
-/* ── paper section ──────────────────────────────────────────── */
-.paper-section{background:var(--paper);}
-.paper-header{
-  border-bottom:3px solid var(--navy);padding-bottom:2rem;margin-bottom:3rem;
-}
-.paper-kicker{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--teal);margin-bottom:1rem;
-}
-.paper-title{
-  font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.8rem);
-  font-weight:900;line-height:1.1;color:var(--navy);margin-bottom:.75rem;
-}
-.paper-subtitle{
-  font-family:var(--serif);font-size:1.15rem;font-weight:400;
-  font-style:italic;color:var(--muted);margin-bottom:1.5rem;
-}
-.paper-meta{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;
-  color:var(--muted);text-transform:uppercase;
-  display:flex;gap:1.5rem;flex-wrap:wrap;
-}
-.paper-meta span+span::before{content:'·';margin-right:1.5rem;}
-
-/* paper body */
-.paper-body h2{
-  font-family:var(--serif);font-size:1.45rem;font-weight:700;
-  color:var(--navy);margin:3rem 0 1rem;padding-top:1rem;
-  border-top:1px solid var(--rule);
-}
-.paper-body h3{
-  font-family:var(--serif);font-size:1.1rem;font-weight:700;
-  font-style:italic;color:var(--teal);margin:2rem 0 .75rem;
-}
-.paper-body p{margin-bottom:1.25rem;line-height:1.85;}
-.paper-body ul{margin:0 0 1.25rem 1.5rem;}
-.paper-body li{margin-bottom:.5rem;line-height:1.7;}
-
-.callout{
-  border-left:4px solid var(--teal);
-  background:var(--teal-pale);
-  padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 6px 6px 0;
-}
-.callout-title{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;font-weight:500;
-}
-.callout p{margin:0;font-size:.95rem;}
-
-.warning{
-  border-left:4px solid var(--warn);
-  background:var(--warn-bg);
-  padding:1.25rem 1.5rem;margin:2rem 0;border-radius:0 6px 6px 0;
-}
-.warning .callout-title{color:var(--warn);}
-
-.pull-quote{
-  font-family:var(--serif);font-size:1.4rem;font-style:italic;
-  font-weight:400;color:var(--navy);line-height:1.5;
-  border-top:2px solid var(--navy);border-bottom:2px solid var(--navy);
-  padding:1.5rem 0;margin:2.5rem 0;text-align:center;
+.stat-label {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim); line-height: 1.6;
 }
 
-/* framework layers */
-.framework{margin:2rem 0;}
-.layer{
-  padding:1rem 1.25rem;margin-bottom:4px;border-radius:4px;
-  display:flex;align-items:flex-start;gap:1rem;
+/* ─────────────────────────────────────────────────────
+   ABOUT
+───────────────────────────────────────────────────── */
+.about {
+  padding: 6rem 2rem;
+  background: var(--bg-paper);
+  border-bottom: 1px solid var(--border);
 }
-.layer-tag{
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;
-  text-transform:uppercase;white-space:nowrap;margin-top:.15rem;
-  min-width:80px;font-weight:500;
+.about-inner {
+  max-width: var(--wide); margin: 0 auto;
+  display: grid; grid-template-columns: 280px 1fr;
+  gap: 5rem; align-items: start;
 }
-.layer-body{}
-.layer-name{font-weight:600;font-size:.95rem;margin-bottom:.2rem;}
-.layer-desc{font-size:.85rem;line-height:1.5;}
-.l4{background:#EBF2FB;}.l4 .layer-tag{color:var(--blue);}
-.l3{background:#A8C4EC;}.l3 .layer-tag{color:var(--navy);}.l3 .layer-name{color:var(--navy);}.l3 .layer-desc{color:#06457F;}
-.l2{background:#5379AE;color:#fff;}.l2 .layer-tag{color:#EBF2FB;}.l2 .layer-name{color:#fff;}.l2 .layer-desc{color:#EBF2FB;}
-.l1{background:var(--navy);color:#fff;}.l1 .layer-tag{color:#A8C4EC;}.l1 .layer-name{color:#fff;}.l1 .layer-desc{color:#EBF2FB;}
-.l0{background:var(--deep);color:#fff;}.l0 .layer-tag{color:var(--teal);}.l0 .layer-name{color:#fff;}.l0 .layer-desc{color:#a0c4e8;}
+.about-sidebar {}
+.sidebar-label {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-vivid); margin-bottom: 1.5rem;
+}
+.sidebar-name {
+  font-family: var(--serif); font-size: 1.6rem;
+  font-weight: 700; color: var(--c-night);
+  line-height: 1.15; margin-bottom: 1.25rem;
+}
+.creds {
+  display: flex; flex-direction: column; gap: 0.4rem;
+  margin-top: 1.5rem;
+}
+.cred {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.cred::before {
+  content: '—'; color: var(--c-vivid); font-size: 0.55rem;
+}
+.about-body p {
+  margin-bottom: 1.25rem;
+  color: var(--text-primary);
+  font-size: 1.05rem; line-height: 1.85;
+}
+.about-body p:last-child { margin-bottom: 0; }
+.about-body strong { color: var(--c-night); font-weight: 600; }
 
-/* tables */
-.data-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.88rem;}
-.data-table th{
-  background:var(--navy);color:#fff;
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
-  padding:.75rem 1rem;text-align:left;
+/* ─────────────────────────────────────────────────────
+   PAPER
+───────────────────────────────────────────────────── */
+.paper-section {
+  padding: 6rem 2rem;
+  background: var(--bg);
 }
-.data-table td{padding:.7rem 1rem;border-bottom:1px solid var(--rule);vertical-align:top;}
-.data-table tr:nth-child(even) td{background:var(--cream);}
-.data-table td:first-child{font-weight:600;color:var(--navy);white-space:nowrap;}
+.paper-inner { max-width: var(--max); margin: 0 auto; }
 
-.ethics-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.85rem;}
-.ethics-table th{
-  background:var(--navy);color:#fff;
-  font-family:var(--mono);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;
-  padding:.65rem .85rem;text-align:left;
+.paper-header {
+  margin-bottom: 3.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 2px solid var(--c-night);
 }
-.ethics-table td{padding:.65rem .85rem;border-bottom:1px solid var(--rule);vertical-align:top;}
-.ethics-table tr:nth-child(even) td{background:var(--cream);}
-.ethics-table td:first-child{font-weight:600;color:var(--teal);}
-
-.numbered-list{list-style:none;margin:1.5rem 0;}
-.numbered-list li{
-  display:flex;gap:1rem;margin-bottom:1.25rem;
-  padding-bottom:1.25rem;border-bottom:1px solid var(--rule);
+.paper-kicker {
+  font-family: var(--mono); font-size: 0.65rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-vivid); margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
 }
-.numbered-list li:last-child{border-bottom:none;}
-.num{
-  font-family:var(--serif);font-size:1.5rem;font-weight:900;
-  color:var(--teal);min-width:32px;line-height:1;margin-top:.1rem;
+.paper-kicker::before {
+  content: ''; display: block;
+  width: 20px; height: 1px; background: var(--c-vivid);
 }
-
-/* ── clinaudit card ─────────────────────────────────────────── */
-.work-section{background:var(--deep);padding:5rem 2rem;}
-.work-label{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;
-  display:flex;align-items:center;gap:.75rem;
+.paper-title {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  font-weight: 900; line-height: 1.1;
+  color: var(--c-night); margin-bottom: 0.85rem;
+  letter-spacing: -0.02em;
 }
-.work-label::after{content:'';flex:1;height:1px;background:var(--teal);opacity:.3;}
-.work-intro{
-  font-family:var(--serif);font-size:1.6rem;font-weight:700;
-  color:#fff;margin-bottom:3rem;max-width:600px;line-height:1.3;
+.paper-subtitle {
+  font-family: var(--serif); font-size: 1.15rem;
+  font-style: italic; color: var(--text-secondary);
+  margin-bottom: 1.5rem; line-height: 1.5;
 }
-.work-card{
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
-  border-radius:8px;padding:2.5rem;display:grid;
-  grid-template-columns:1fr auto;gap:2rem;align-items:start;
-  transition:border-color .3s,background .3s;
+.paper-meta {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 0.65rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted);
 }
-.work-card:hover{
-  border-color:rgba(4,116,196,.45);background:rgba(4,116,196,.06);
-}
-.work-card-tag{
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--teal);margin-bottom:.75rem;
-}
-.work-card h3{
-  font-family:var(--serif);font-size:1.6rem;font-weight:700;
-  color:#fff;margin-bottom:.75rem;line-height:1.2;
-}
-.work-card p{color:rgba(255,255,255,.6);font-size:.9rem;margin-bottom:1.25rem;line-height:1.7;}
-.work-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
-.work-tag{
-  font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;
-  text-transform:uppercase;padding:.2rem .55rem;
-  border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);border-radius:2px;
-}
-.work-card-arrow{
-  color:var(--teal);font-size:2rem;text-decoration:none;
-  transition:transform .2s;display:block;margin-top:.5rem;
-}
-.work-card:hover .work-card-arrow{transform:translate(4px,-4px);}
-
-/* ── engage section ─────────────────────────────────────────── */
-.engage{background:var(--navy);padding:5rem 2rem;}
-.engage-inner{max-width:var(--wide);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
-.engage h2{
-  font-family:var(--serif);font-size:2.2rem;font-weight:900;
-  color:#fff;line-height:1.15;margin-bottom:1.5rem;
-}
-.engage h2 em{color:var(--teal);font-style:italic;}
-.engage p{color:rgba(255,255,255,.6);margin-bottom:1.5rem;line-height:1.75;}
-.engage-links{display:flex;flex-direction:column;gap:1rem;}
-.engage-link{
-  display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
-  border-radius:6px;text-decoration:none;color:#fff;transition:all .25s;
-}
-.engage-link:hover{background:rgba(4,116,196,.12);border-color:rgba(4,116,196,.4);}
-.engage-link-icon{font-size:1.25rem;}
-.engage-link-body{}
-.engage-link-title{font-weight:600;font-size:.95rem;margin-bottom:.1rem;}
-.engage-link-sub{font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);}
-.engage-right{}
-.roles{list-style:none;}
-.roles li{
-  padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.1);
-  font-size:.9rem;color:rgba(255,255,255,.7);
-  display:flex;align-items:center;gap:.75rem;
-}
-.roles li::before{content:'→';color:var(--teal);font-family:var(--mono);}
-.roles li:last-child{border-bottom:none;}
-.rate-note{
-  margin-top:2rem;padding:1.25rem;
-  background:rgba(4,116,196,.1);border:1px solid rgba(4,116,196,.25);
-  border-radius:6px;font-size:.85rem;color:rgba(255,255,255,.65);
-}
-.rate-note strong{color:var(--teal);}
-
-/* ── footer ─────────────────────────────────────────────────── */
-footer{
-  background:var(--deep);border-top:1px solid rgba(255,255,255,.08);
-  padding:2rem;text-align:center;
-}
-footer p{
-  font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;
-  text-transform:uppercase;color:rgba(255,255,255,.25);
+.paper-meta span { display: flex; align-items: center; gap: 0.5rem; }
+.paper-meta span + span::before {
+  content: '·'; color: var(--border-strong);
 }
 
-/* ── animations ─────────────────────────────────────────────── */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
+/* Paper body typography */
+.paper-body { font-size: 1.05rem; line-height: 1.88; }
 
-/* ── responsive ─────────────────────────────────────────────── */
-@media(max-width:768px){
-  .hero-inner{grid-template-columns:1fr;gap:2.5rem;}
-  .hero-stats{grid-template-columns:1fr 1fr;}
-  .engage-inner{grid-template-columns:1fr;}
-  .work-card{grid-template-columns:1fr;}
-  nav{padding:.75rem 1rem;}
-  .nav-links .hide-sm{display:none;}
-  .paper-meta{flex-direction:column;gap:.5rem;}
-  .paper-meta span+span::before{content:none;margin:0;}
+.paper-body h2 {
+  font-family: var(--serif);
+  font-size: 1.55rem; font-weight: 700;
+  color: var(--c-night); margin: 3.5rem 0 1rem;
+  padding-top: 2rem; border-top: 1px solid var(--border);
+  letter-spacing: -0.01em;
+}
+.paper-body h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+.paper-body h3 {
+  font-family: var(--serif); font-size: 1.15rem;
+  font-weight: 700; font-style: italic;
+  color: var(--c-vivid); margin: 2.5rem 0 0.75rem;
+}
+.paper-body p { margin-bottom: 1.25rem; }
+.paper-body ul {
+  margin: 0.5rem 0 1.5rem 1.25rem;
+}
+.paper-body li {
+  margin-bottom: 0.5rem; padding-left: 0.25rem;
+  color: var(--text-primary);
+}
+.paper-body li::marker { color: var(--c-vivid); }
+
+/* Callouts */
+.callout {
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  background: rgba(4,116,196,0.06);
+  border-left: 3px solid var(--c-vivid);
+  border-radius: 0 6px 6px 0;
+}
+.callout-label {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--c-vivid); margin-bottom: 0.6rem; font-weight: 500;
+}
+.callout p { margin: 0; font-size: 0.98rem; }
+
+.callout-warn {
+  background: rgba(185,100,10,0.07);
+  border-left-color: #B8660A;
+}
+.callout-warn .callout-label { color: #8B4E08; }
+
+.callout-neutral {
+  background: rgba(83,121,174,0.07);
+  border-left-color: var(--c-slate);
+}
+.callout-neutral .callout-label { color: var(--c-slate); }
+
+/* Pull quote */
+.pull-quote {
+  font-family: var(--serif);
+  font-size: 1.35rem; font-style: italic;
+  color: var(--c-night); line-height: 1.55;
+  margin: 3rem 0;
+  padding: 1.5rem 0;
+  border-top: 1.5px solid var(--c-night);
+  border-bottom: 1.5px solid var(--c-night);
+  text-align: center;
+}
+
+/* Framework layers */
+.framework { margin: 2rem 0; }
+.layer {
+  padding: 1rem 1.25rem;
+  margin-bottom: 3px; border-radius: 4px;
+  display: flex; align-items: flex-start; gap: 1rem;
+}
+.layer-tag {
+  font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  white-space: nowrap; margin-top: 0.15rem;
+  min-width: 78px; font-weight: 500;
+}
+.layer-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem; }
+.layer-desc { font-size: 0.85rem; line-height: 1.55; }
+
+.l4 { background: #EBF2FB; }
+.l4 .layer-tag, .l4 .layer-name { color: var(--c-deep); }
+.l4 .layer-desc { color: #3a5a80; }
+
+.l3 { background: var(--c-sky); }
+.l3 .layer-tag { color: var(--c-deep); }
+.l3 .layer-name { color: var(--c-night); }
+.l3 .layer-desc { color: var(--c-night); opacity: 0.75; }
+
+.l2 { background: var(--c-slate); }
+.l2 .layer-tag { color: #c8d8f4; }
+.l2 .layer-name, .l2 .layer-desc { color: #fff; }
+.l2 .layer-desc { opacity: 0.85; }
+
+.l1 { background: var(--c-deep); }
+.l1 .layer-tag { color: var(--c-sky); }
+.l1 .layer-name { color: #fff; }
+.l1 .layer-desc { color: rgba(168,196,236,0.8); }
+
+.l0 { background: var(--c-night); }
+.l0 .layer-tag { color: var(--c-sky); }
+.l0 .layer-name { color: #fff; }
+.l0 .layer-desc { color: rgba(168,196,236,0.75); }
+
+/* Tables */
+.tbl-wrap { overflow-x: auto; margin: 1.5rem 0; }
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.88rem;
+}
+thead th {
+  background: var(--c-night); color: #fff;
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.75rem 1rem; text-align: left;
+  font-weight: 500;
+}
+tbody td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top; color: var(--text-primary);
+}
+tbody tr:nth-child(even) td { background: rgba(168,196,236,0.06); }
+tbody td:first-child {
+  font-weight: 600; color: var(--c-deep);
+  white-space: nowrap;
+}
+.tbl-3 td:first-child { color: var(--c-vivid); }
+
+/* Numbered caveats */
+.caveats { list-style: none; margin: 1.5rem 0; }
+.caveat {
+  display: flex; gap: 1.25rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.caveat:last-child { border-bottom: none; }
+.caveat-num {
+  font-family: var(--serif);
+  font-size: 1.6rem; font-weight: 900;
+  color: var(--c-vivid); min-width: 32px;
+  line-height: 1.1; margin-top: 0.05rem;
+}
+.caveat-body { font-size: 0.98rem; }
+.caveat-body strong { color: var(--c-night); }
+
+/* ─────────────────────────────────────────────────────
+   WORK / CLINAUDIT
+───────────────────────────────────────────────────── */
+.work {
+  background: var(--bg-dark);
+  padding: 6rem 2rem;
+}
+.work-inner { max-width: var(--wide); margin: 0 auto; }
+.section-eyebrow {
+  font-family: var(--mono); font-size: 0.65rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-sky); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.section-eyebrow::before {
+  content: ''; width: 20px; height: 1px; background: var(--c-sky);
+}
+.work-heading {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700; color: #fff;
+  margin-bottom: 3rem; line-height: 1.25;
+  max-width: 520px;
+}
+.work-heading em { font-style: italic; color: var(--c-sky); }
+
+/* Card */
+.card {
+  border: 1px solid rgba(168,196,236,0.12);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  transition:
+    border-color 220ms ease,
+    background 220ms ease,
+    transform 220ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    border-color: rgba(4,116,196,0.45);
+    background: rgba(4,116,196,0.06);
+    transform: translateY(-2px);
+  }
+}
+.card:active { transform: scale(0.99); }
+.card-inner {
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem; align-items: start;
+}
+.card-tag {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--c-sky); margin-bottom: 0.75rem;
+}
+.card h3 {
+  font-family: var(--serif);
+  font-size: 1.7rem; font-weight: 700;
+  color: #fff; margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.card p {
+  color: var(--text-dim);
+  font-size: 0.9rem; line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tag {
+  font-family: var(--mono); font-size: 0.58rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid rgba(168,196,236,0.18);
+  color: rgba(168,196,236,0.5);
+  border-radius: 2px;
+}
+.card-arrow {
+  font-size: 1.5rem; color: var(--c-sky);
+  transition: transform 200ms var(--ease-out), opacity 200ms ease;
+  opacity: 0.6; margin-top: 0.25rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .card-arrow {
+    transform: translate(3px, -3px); opacity: 1;
+  }
+}
+
+/* ─────────────────────────────────────────────────────
+   ENGAGE
+───────────────────────────────────────────────────── */
+.engage {
+  background: var(--bg-mid);
+  padding: 6rem 2rem;
+}
+.engage-inner {
+  max-width: var(--wide); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start;
+}
+.engage h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 900; color: #fff;
+  line-height: 1.15; margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.engage h2 em { font-style: italic; color: var(--c-sky); }
+.engage > .engage-inner > div > p {
+  color: var(--text-dim);
+  margin-bottom: 2rem; line-height: 1.8;
+}
+.engage-link {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid rgba(168,196,236,0.15);
+  border-radius: 6px; text-decoration: none; color: #fff;
+  background: rgba(255,255,255,0.03);
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .engage-link:hover {
+    background: rgba(4,116,196,0.15);
+    border-color: rgba(4,116,196,0.4);
+  }
+}
+.engage-link:active { transform: scale(0.98); }
+.link-icon {
+  width: 36px; height: 36px;
+  background: rgba(168,196,236,0.12);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+  color: var(--c-sky); flex-shrink: 0;
+}
+.link-title { font-weight: 500; font-size: 0.95rem; }
+.link-sub {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-dim); margin-top: 0.1rem;
+}
+
+/* Roles list */
+.roles-heading {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--c-sky); margin-bottom: 1.25rem;
+}
+.roles { list-style: none; }
+.roles li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(168,196,236,0.12);
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.95rem; color: rgba(255,255,255,0.75);
+}
+.roles li:last-child { border-bottom: none; }
+.roles li::before {
+  content: '→'; color: var(--c-sky);
+  font-family: var(--mono); font-size: 0.75rem;
+}
+.rate-box {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(4,116,196,0.12);
+  border: 1px solid rgba(4,116,196,0.25);
+  border-radius: 6px;
+  font-size: 0.88rem; color: var(--text-dim);
+  line-height: 1.7;
+}
+.rate-box strong { color: var(--c-sky); }
+
+/* ─────────────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────────────── */
+footer {
+  background: var(--bg-dark);
+  border-top: 1px solid rgba(168,196,236,0.08);
+  padding: 2rem;
+  display: flex; align-items: center; justify-content: center;
+}
+footer p {
+  font-family: var(--mono); font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ─────────────────────────────────────────────────────
+   SCROLL REVEAL — clip-path, Emil style
+   Only transform + opacity (GPU layers)
+───────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 500ms var(--ease-out),
+    transform 500ms var(--ease-out);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* Stagger children — 50ms gap, Emil-approved short delay */
+.stagger > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 400ms var(--ease-out),
+    transform 400ms var(--ease-out);
+}
+.stagger.in > *:nth-child(1)  { transition-delay:   0ms; }
+.stagger.in > *:nth-child(2)  { transition-delay:  50ms; }
+.stagger.in > *:nth-child(3)  { transition-delay: 100ms; }
+.stagger.in > *:nth-child(4)  { transition-delay: 150ms; }
+.stagger.in > *:nth-child(5)  { transition-delay: 200ms; }
+.stagger.in > *:nth-child(6)  { transition-delay: 250ms; }
+.stagger.in > * { opacity: 1; transform: translateY(0); }
+
+/* ─────────────────────────────────────────────────────
+   REDUCED MOTION — opacity only, no movement
+───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .stagger > * {
+    transform: none;
+    transition: opacity 200ms ease;
+  }
+  nav, .card, .btn, .engage-link, .nav-pill {
+    transition: opacity 200ms ease !important;
+  }
+  #bar { transition: none; }
+}
+
+/* ─────────────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .engage-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .card-inner { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  nav .nav-right .nav-link:not(:last-child) { display: none; }
 }
 </style>
 </head>
 <body>
 
-<div id="progress"></div>
+<div id="bar" role="progressbar" aria-label="Reading progress"></div>
 
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav>
-  <a href="#" class="nav-name">Sarah Amani</a>
-  <div class="nav-links">
-    <a href="#paper" class="hide-sm">Position Paper</a>
-    <a href="#work" class="hide-sm">Work</a>
-    <a href="#engage">Engage</a>
-    <a href="https://www.LinkedIn.com/in/amanisarah" target="_blank" rel="noopener" class="nav-badge">Available May 2026</a>
+  <a href="#top" class="nav-name">Sarah Amani</a>
+  <div class="nav-right">
+    <a href="#paper" class="nav-link">Paper</a>
+    <a href="#work" class="nav-link">Work</a>
+    <a href="#engage" class="nav-link">Engage</a>
+    <a href="https://www.LinkedIn.com/in/amanisarah" target="_blank" rel="noopener" class="nav-pill">Available May 2026</a>
   </div>
 </nav>
 
-<!-- ── HERO ── -->
-<section class="hero">
+<!-- HERO -->
+<section class="hero" id="top">
   <div class="hero-inner">
-    <div class="hero-text reveal">
-      <div class="hero-tag">NHS Digital Health Leader</div>
-      <h1>Sarah<br/><span>Amani</span></h1>
+    <div class="reveal">
+      <div class="hero-eyebrow">NHS Digital Health</div>
+      <h1>Sarah<br/><em>Amani</em></h1>
       <div class="hero-sub">
         Registered Mental Health Nurse<br/>
         Clinical Informatics &amp; AI Governance<br/>
         22+ Years NHS Experience
       </div>
-      <div class="hero-links">
-        <a href="#paper" class="btn btn-primary">Read Position Paper</a>
-        <a href="https://www.LinkedIn.com/in/amanisarah" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn →</a>
+      <div class="hero-ctas">
+        <a href="#paper" class="btn btn-solid">Read the paper</a>
+        <a href="https://www.LinkedIn.com/in/amanisarah" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn ↗</a>
       </div>
     </div>
-    <div class="hero-stats reveal">
-      <div class="stat-card">
-        <div class="number">22+</div>
-        <div class="label">Years NHS<br/>Experience</div>
+    <div class="stats stagger">
+      <div class="stat">
+        <div class="stat-num">22+</div>
+        <div class="stat-label">Years NHS<br/>Experience</div>
       </div>
-      <div class="stat-card">
-        <div class="number">18</div>
-        <div class="label">Clinical Safety<br/>Cases Authored</div>
+      <div class="stat">
+        <div class="stat-num">18</div>
+        <div class="stat-label">Clinical Safety<br/>Cases Authored</div>
       </div>
-      <div class="stat-card">
-        <div class="number">16</div>
-        <div class="label">NHS Trusts<br/>EIP Programme</div>
+      <div class="stat">
+        <div class="stat-num">16</div>
+        <div class="stat-label">NHS Trusts<br/>EIP Programme</div>
       </div>
-      <div class="stat-card">
-        <div class="number">100+</div>
-        <div class="label">Children Fed Daily<br/>Kwathu, Malawi</div>
+      <div class="stat">
+        <div class="stat-num">100+</div>
+        <div class="stat-label">Children Fed Daily<br/>Kwathu, Malawi</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── ABOUT ── -->
+<!-- ABOUT -->
 <section class="about">
-  <div class="section-inner reveal">
-    <div class="section-label">About</div>
-    <h2>Clinician. Informaticist.<br/>System thinker.</h2>
-    <p>I am a Registered Mental Health Nurse and NHS digital health leader with over 22 years of experience spanning clinical, operational, and strategic roles at local, regional, and national level. I have held a Chief Nursing Information Officer (CNIO) position at Dorset HealthCare NHS Foundation Trust, where I led clinical safety governance for AI and digital health technologies — authoring clinical safety cases under DCB0129 and DCB0160 across eighteen deployed systems.</p>
-    <p>My track record includes nationally recognised programmes: the EIP Matrix real-world data analytics platform across 16 NHS Trusts, the <em>My Journey</em> mobile application (HSJ Innovation Award 2011), the ARIES trial published in the BMJ, and co-leadership of the NHS England Early Intervention in Psychosis Programme. I am invited faculty on the NHS England Global Health Network, delivering clinical informatics training in Zimbabwe, Kenya, and Malawi.</p>
-    <p>Alongside my NHS career, I founded the <strong>Kwathu Breakfast Club and Nursery School</strong> in Sani Village, Malawi — a community feeding programme supporting over 100 children daily. It is the same instinct that drives my NHS work: that systems should be designed to serve the most vulnerable people they reach.</p>
-    <div class="credential-row">
-      <span class="cred">RMN · NMC 01B1028E</span>
-      <span class="cred">Topol Digital Fellow</span>
-      <span class="cred">DCB0129 / DCB0160</span>
-      <span class="cred">CNIO · Dorset HealthCare</span>
-      <span class="cred">HSJ Innovation Award 2011</span>
-      <span class="cred">NHSE Global Health Faculty</span>
+  <div class="about-inner">
+    <div class="reveal">
+      <div class="sidebar-label">About</div>
+      <div class="sidebar-name">Clinician.<br/>Informaticist.<br/>System thinker.</div>
+      <div class="creds stagger">
+        <span class="cred">RMN · NMC 01B1028E</span>
+        <span class="cred">Topol Digital Fellow</span>
+        <span class="cred">DCB0129 / DCB0160</span>
+        <span class="cred">CNIO · Dorset HealthCare</span>
+        <span class="cred">HSJ Innovation Award 2011</span>
+        <span class="cred">NHSE Global Health Faculty</span>
+      </div>
+    </div>
+    <div class="about-body reveal">
+      <p>I am a Registered Mental Health Nurse and NHS digital health leader with over 22 years of experience spanning clinical, operational, and strategic roles at local, regional, and national level. I have held a Chief Nursing Information Officer (CNIO) position at Dorset HealthCare NHS Foundation Trust, authoring clinical safety cases under DCB0129 and DCB0160 across eighteen deployed systems.</p>
+      <p>My track record includes nationally recognised programmes: the EIP Matrix real-world data analytics platform across 16 NHS Trusts, the <strong>My Journey</strong> mobile application (HSJ Innovation Award 2011), the ARIES trial published in the BMJ, and co-leadership of the NHS England Early Intervention in Psychosis Programme. I am invited faculty on the NHS England Global Health Network, delivering clinical informatics training in Zimbabwe, Kenya, and Malawi.</p>
+      <p>Alongside my NHS career, I founded the <strong>Kwathu Breakfast Club and Nursery School</strong> in Sani Village, Malawi — a community feeding programme supporting over 100 children daily. The same instinct drives both: systems should serve the most vulnerable people they reach.</p>
     </div>
   </div>
 </section>
 
-<!-- ── POSITION PAPER ── -->
+<!-- PAPER -->
 <section class="paper-section" id="paper">
-  <div class="section-inner">
+  <div class="paper-inner">
 
     <div class="paper-header reveal">
       <div class="paper-kicker">Position Paper · May 2026</div>
@@ -469,285 +804,243 @@ footer p{
       <div class="paper-meta">
         <span>Sarah Amani</span>
         <span>May 2026</span>
-        <span>For discussion and collaboration</span>
+        <span>For discussion &amp; collaboration</span>
       </div>
     </div>
 
-    <div class="paper-body reveal">
+    <div class="paper-body">
 
-      <!-- Executive Summary -->
-      <h2>Executive Summary</h2>
-      <p>Every NHS organisation already possesses the raw material of AI ethics: co-produced vision and values, developed with patients, carers, and staff. These documents are not aspirational posters. They encode what an organisation believes about dignity, safety, equity, and accountability.</p>
-      <p>This paper argues that sustainable AI governance in the NHS should begin there — and build upward. By mapping the established pillars of AI ethics onto existing organisational values, and then designing a runtime monitoring layer that accounts for real human behaviour rather than idealised compliance, NHS organisations can move from governance as language to governance as verifiable operation.</p>
-      <p>This is not a proposal to build new technology from scratch. It is a framework for using what exists more intelligently — and for being honest about where the gaps are.</p>
+      <h2 class="reveal">Executive Summary</h2>
+      <p class="reveal">Every NHS organisation already possesses the raw material of AI ethics: co-produced vision and values, developed with patients, carers, and staff. These documents are not aspirational posters. They encode what an organisation believes about dignity, safety, equity, and accountability.</p>
+      <p class="reveal">This paper argues that sustainable AI governance in the NHS should begin there — and build upward. By mapping the established pillars of AI ethics onto existing organisational values, and then designing a runtime monitoring layer that accounts for real human behaviour rather than idealised compliance, NHS organisations can move from governance as language to governance as verifiable operation.</p>
 
-      <div class="callout">
-        <div class="callout-title">Central Proposition</div>
+      <div class="callout reveal">
+        <div class="callout-label">Central Proposition</div>
         <p>The question for NHS AI governance is not <em>'Do we have a policy?'</em> It is: <em>'Can we show, at the point of clinical action, that only admissible conduct occurred — and that human oversight was genuinely exercised, not merely performed?'</em></p>
       </div>
 
-      <!-- The Problem -->
-      <h2>The Problem: Governance Language Without Governed Operation</h2>
-      <p>Most NHS AI governance frameworks are not inadequate. They are incomplete. They describe, document, audit, and reconstruct. What they rarely do is govern in real time — at the moment a clinical decision is made, a note is generated, or a triage recommendation is accepted.</p>
-      <p>This gap matters because the highest-risk moments in AI-assisted care are not detectable after the fact. They occur in the interaction between a clinician and an AI system: the acceptance without review, the override that does not happen, the recommendation followed without documented clinical reasoning.</p>
-      <p>Current frameworks typically provide:</p>
-      <ul>
+      <h2 class="reveal">The Problem: Governance Language Without Governed Operation</h2>
+      <p class="reveal">Most NHS AI governance frameworks are not inadequate. They are incomplete. They describe, document, audit, and reconstruct. What they rarely do is govern in real time — at the moment a clinical decision is made, a note is generated, or a triage recommendation is accepted.</p>
+      <p class="reveal">Current frameworks typically provide:</p>
+      <ul class="reveal">
         <li>Policies and standards (DCB0129, DCB0160, DSPT, NHSE AI framework)</li>
         <li>Pre-deployment assessment and clinical safety cases</li>
         <li>Post-hoc audit trails and dashboards</li>
-        <li>Vendor assurance documentation</li>
-        <li>Governance committee structures</li>
+        <li>Vendor assurance documentation and governance committee structures</li>
       </ul>
-      <p>What they rarely provide is a live, computable layer that can demonstrate — at the execution boundary — that human oversight was genuinely present, that the system behaved within its approved parameters, and that specific patient populations were not disadvantaged by automation patterns.</p>
+      <p class="reveal">What they rarely provide is a live, computable layer that can demonstrate — at the execution boundary — that human oversight was genuinely present, that the system behaved within its approved parameters, and that specific patient populations were not disadvantaged by automation patterns.</p>
 
-      <div class="warning">
-        <div class="callout-title">⚠ The Rubber-Stamping Problem</div>
+      <div class="callout callout-warn reveal">
+        <div class="callout-label">⚠ The Rubber-Stamping Problem</div>
         <p>A clinician who accepts an AI-generated clinical note in three seconds has technically completed the 'human in the loop' step. But they have not exercised clinical judgment. Governance frameworks that cannot distinguish between performed compliance and real oversight are producing a false sense of assurance — and a genuine safety exposure.</p>
       </div>
 
-      <!-- The Foundation -->
-      <h2>The Existing Foundation: Trust Values as Ethical Substrate</h2>
-      <p>Every NHS organisation has a set of co-produced values. These are not peripheral documents. They represent the outcome of genuine engagement with patients, carers, clinical staff, and communities. They articulate what the organisation believes about how care should be delivered and how people should be treated.</p>
-      <p>For the purposes of AI governance, these values are the ethical ground truth. They are the answer to the question: 'What does good look like in this organisation?' — a question that AI ethics frameworks cannot answer generically.</p>
-      <p>The translation does not require new values. It requires organisations to take their existing values seriously as operational commitments — including in digital environments.</p>
+      <h2 class="reveal">The Existing Foundation: Trust Values as Ethical Substrate</h2>
+      <p class="reveal">Every NHS organisation has co-produced values. These represent genuine engagement with patients, carers, clinical staff, and communities. For the purposes of AI governance, they are the ethical ground truth — the answer to 'What does good look like here?' that no generic framework can answer.</p>
+      <p class="reveal">The translation requires no new values. It requires taking existing values seriously as operational commitments — including in digital environments.</p>
 
-      <table class="data-table">
-        <thead><tr><th>Organisational Value</th><th>AI Governance Implication</th></tr></thead>
-        <tbody>
-          <tr><td>We listen</td><td>AI outputs must not override patient-expressed preferences. Human review must include a record of patient voice where it exists in the record.</td></tr>
-          <tr><td>We are compassionate</td><td>AI-assisted triage must not systematically deprioritise patients with complex presentations or protected characteristics.</td></tr>
-          <tr><td>We take responsibility</td><td>Every AI-generated clinical action must have a named, accountable clinician. Anonymised AI outputs are not permissible in clinical records.</td></tr>
-          <tr><td>We keep you safe</td><td>Any AI system whose performance has drifted from its approved safety case must trigger immediate clinical review, not a quarterly report.</td></tr>
-          <tr><td>We work together</td><td>AI governance is not a digital team responsibility. Clinical leaders, patient representatives, and operational managers share accountability.</td></tr>
-        </tbody>
-      </table>
+      <div class="tbl-wrap reveal">
+        <table>
+          <thead><tr><th>Organisational Value</th><th>AI Governance Implication</th></tr></thead>
+          <tbody>
+            <tr><td>We listen</td><td>AI outputs must not override patient-expressed preferences. Human review must include a record of patient voice where it exists in the record.</td></tr>
+            <tr><td>We are compassionate</td><td>AI-assisted triage must not systematically deprioritise patients with complex presentations or protected characteristics.</td></tr>
+            <tr><td>We take responsibility</td><td>Every AI-generated clinical action must have a named, accountable clinician. Anonymised AI outputs are not permissible in clinical records.</td></tr>
+            <tr><td>We keep you safe</td><td>Any AI system whose performance has drifted from its approved safety case must trigger immediate clinical review — not a quarterly report.</td></tr>
+            <tr><td>We work together</td><td>AI governance is not a digital team responsibility. Clinical leaders, patient representatives, and operational managers share accountability.</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-      <!-- AI Ethics Pillars -->
-      <h2>Integrating the Pillars of AI Ethics</h2>
-      <p>International AI ethics frameworks — including those from the WHO, OECD, and the NHS AI Lab — converge on a consistent set of principles. These are not alternatives to Trust values. They are the technical vocabulary that allows values to be operationalised in AI systems.</p>
+      <h2 class="reveal">Integrating the Pillars of AI Ethics</h2>
+      <p class="reveal">International AI ethics frameworks — WHO, OECD, NHS AI Lab — converge on a consistent set of principles. These are not alternatives to Trust values. They are the vocabulary that allows values to be operationalised in AI systems.</p>
 
-      <table class="ethics-table">
-        <thead><tr><th>Pillar</th><th>Core Commitment</th><th>NHS Governance Question</th></tr></thead>
-        <tbody>
-          <tr><td>Beneficence</td><td>AI should benefit patients and populations</td><td>Can we demonstrate net clinical benefit, including for underserved groups?</td></tr>
-          <tr><td>Non-maleficence</td><td>AI should not cause harm — including through inaction or delay</td><td>Are we monitoring for harm caused by over-reliance, automation bias, or delayed human review?</td></tr>
-          <tr><td>Autonomy</td><td>Patients and clinicians retain meaningful choice</td><td>Is consent to AI involvement documented? Can clinicians meaningfully override AI recommendations?</td></tr>
-          <tr><td>Justice &amp; Equity</td><td>AI should not exacerbate health inequalities</td><td>Are we monitoring AI performance disaggregated by ethnicity, deprivation, age, and gender?</td></tr>
-          <tr><td>Explicability</td><td>AI decisions should be understandable to those affected</td><td>Can a patient ask how an AI contributed to their care, and receive a meaningful answer?</td></tr>
-          <tr><td>Accountability</td><td>Responsibility for AI conduct must be clearly assigned</td><td>Is there a named clinician accountable for every AI-assisted clinical action?</td></tr>
-        </tbody>
-      </table>
+      <div class="tbl-wrap reveal">
+        <table class="tbl-3">
+          <thead><tr><th>Pillar</th><th>Core Commitment</th><th>NHS Governance Question</th></tr></thead>
+          <tbody>
+            <tr><td>Beneficence</td><td>AI should benefit patients and populations</td><td>Can we demonstrate net clinical benefit, including for underserved groups?</td></tr>
+            <tr><td>Non-maleficence</td><td>AI should not cause harm — including through inaction</td><td>Are we monitoring for harm caused by over-reliance or delayed human review?</td></tr>
+            <tr><td>Autonomy</td><td>Patients and clinicians retain meaningful choice</td><td>Is consent to AI involvement documented? Can clinicians meaningfully override?</td></tr>
+            <tr><td>Justice &amp; Equity</td><td>AI should not exacerbate health inequalities</td><td>Are we monitoring AI performance disaggregated by ethnicity, deprivation, and gender?</td></tr>
+            <tr><td>Explicability</td><td>AI decisions should be understandable</td><td>Can a patient receive a meaningful answer about how AI contributed to their care?</td></tr>
+            <tr><td>Accountability</td><td>Responsibility must be clearly assigned</td><td>Is there a named clinician accountable for every AI-assisted clinical action?</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-      <!-- Real Human Behaviour -->
-      <h2>Designing for Real Human Behaviour</h2>
-      <p>This is the most neglected dimension of AI governance — and the most important. Every governance framework implicitly assumes a rational, attentive, unhurried clinician who reads every AI output carefully, exercises independent judgment, documents their reasoning, and flags anomalies. This clinician does not exist at scale.</p>
+      <h2 class="reveal">Designing for Real Human Behaviour</h2>
+      <p class="reveal">This is the most neglected dimension of AI governance — and the most important. Every framework implicitly assumes a rational, attentive, unhurried clinician. This clinician does not exist at scale.</p>
 
-      <h3>Automation Bias</h3>
-      <p>Clinicians systematically favour AI recommendations over their own judgment, particularly under time pressure. The effect is stronger when AI outputs are presented with confidence scores, when the clinician is fatigued, and when the AI has a track record of accuracy. Governance that does not monitor for automation bias is not monitoring the right thing.</p>
+      <h3 class="reveal">Automation Bias</h3>
+      <p class="reveal">Clinicians systematically favour AI recommendations over their own judgment, particularly under time pressure. The effect is stronger when AI outputs carry confidence scores, when the clinician is fatigued, or when the AI has a track record of accuracy. Governance that does not monitor for automation bias is not monitoring the right thing.</p>
 
-      <h3>Rubber-Stamping</h3>
-      <p>When human review becomes a step in a workflow rather than an act of clinical judgment, it loses its protective function. Time-on-task data, amendment rates, and override patterns are behavioural proxies for genuine oversight. These should be monitored — not as disciplinary tools, but as system-level safety signals.</p>
+      <h3 class="reveal">Rubber-Stamping</h3>
+      <p class="reveal">When human review becomes a workflow step rather than an act of judgment, it loses its protective function. Time-on-task data, amendment rates, and override patterns are behavioural proxies for genuine oversight — system-level safety signals, not disciplinary data.</p>
 
-      <h3>Alert Fatigue</h3>
-      <p>A governance layer that generates too many alerts will be ignored. Clinical teams in high-pressure environments have finite attention. Any alert mechanism must be designed with the same discipline as clinical decision support: precise, actionable, and calibrated to interrupt only when it genuinely matters.</p>
+      <h3 class="reveal">Alert Fatigue</h3>
+      <p class="reveal">A governance layer that fires too many alerts will be ignored. Any alert mechanism must be designed with the same discipline as clinical decision support: precise, actionable, calibrated to interrupt only when it genuinely matters.</p>
 
-      <h3>Gaming Under Pressure</h3>
-      <p>Clinicians working under capacity pressure will find the path of least resistance through any compliance layer. If clicking 'reviewed' takes three seconds and has no consequence, it will take three seconds. Governance design must anticipate this — not by punishing individuals, but by making the compliant path the easiest path.</p>
+      <h3 class="reveal">Gaming Under Pressure</h3>
+      <p class="reveal">Clinicians under capacity pressure will find the path of least resistance. Governance must make the compliant path the easiest path — not by punishing individuals, but by system design.</p>
 
-      <h3>Equity Blind Spots</h3>
-      <p>Automation bias compounds existing inequality. If an AI system performs better for white male patients in the training data, and clinicians disproportionately defer to its recommendations for minority ethnic patients — who may have less documentation in the record — the result is a governance-invisible harm. Equity monitoring must be built in from the start, not retrospectively.</p>
+      <h3 class="reveal">Equity Blind Spots</h3>
+      <p class="reveal">Automation bias compounds inequality. If an AI system performs better for white male patients in training data, and clinicians disproportionately defer for minority ethnic patients who have less documentation in the record, the result is a governance-invisible harm. Equity monitoring must be designed in from the start.</p>
 
-      <div class="pull-quote">
+      <div class="pull-quote reveal">
         "Design for the clinician on a busy Friday afternoon — not the clinician in the pilot study. If the framework only works under ideal conditions, it does not work."
       </div>
 
-      <!-- The Framework -->
-      <h2>A Proposed Framework: The Values-Anchored Governance Layer</h2>
-      <p>The framework has four operational layers, built on a foundation that already exists in every NHS organisation.</p>
+      <h2 class="reveal">A Proposed Framework: The Values-Anchored Governance Layer</h2>
+      <p class="reveal">Four operational layers, built on a foundation that already exists in every NHS organisation.</p>
 
-      <div class="framework">
+      <div class="framework reveal">
         <div class="layer l4">
           <div class="layer-tag">Layer 4</div>
-          <div class="layer-body">
-            <div class="layer-name">Assurance Surface</div>
-            <div class="layer-desc">Verifiable reporting for DCB0129/0160, CQC, and NHS England AI regulation. Generates structured evidence capable of demonstrating trustworthy operation — not just compliance.</div>
-          </div>
+          <div><div class="layer-name">Assurance Surface</div><div class="layer-desc">Verifiable reporting for DCB0129/0160, CQC, and NHS England AI regulation. Structured evidence of trustworthy operation — not just compliance.</div></div>
         </div>
         <div class="layer l3">
           <div class="layer-tag">Layer 3</div>
-          <div class="layer-body">
-            <div class="layer-name">Alert Engine</div>
-            <div class="layer-desc">Proactive escalation when human guardrails fail, drift is detected, or equity signals emerge. Calibrated to interrupt only when it genuinely matters.</div>
-          </div>
+          <div><div class="layer-name">Alert Engine</div><div class="layer-desc">Proactive escalation when human guardrails fail, model drift is detected, or equity signals emerge. Calibrated to interrupt only when it genuinely matters.</div></div>
         </div>
         <div class="layer l2">
           <div class="layer-tag">Layer 2</div>
-          <div class="layer-body">
-            <div class="layer-name">Runtime Monitor</div>
-            <div class="layer-desc">Watches human behaviour in relation to AI: HITL integrity, automation bias signals, rubber-stamping patterns, model drift, and population equity. Passive, not obstructive.</div>
-          </div>
+          <div><div class="layer-name">Runtime Monitor</div><div class="layer-desc">Watches human behaviour in relation to AI: HITL integrity, automation bias, rubber-stamping patterns, population equity. Passive — not obstructive.</div></div>
         </div>
         <div class="layer l1">
           <div class="layer-tag">Layer 1</div>
-          <div class="layer-body">
-            <div class="layer-name">Policy Substrate</div>
-            <div class="layer-desc">Organisational values and AI ethics pillars encoded as live, computable rules — not PDFs on an intranet. Precise enough to be testable.</div>
-          </div>
+          <div><div class="layer-name">Policy Substrate</div><div class="layer-desc">Organisational values and AI ethics pillars encoded as live, computable rules — not PDFs. Precise enough to be testable.</div></div>
         </div>
         <div class="layer l0">
           <div class="layer-tag">Foundation</div>
-          <div class="layer-body">
-            <div class="layer-name">Co-Produced Trust Values</div>
-            <div class="layer-desc">Developed with patients, carers, and staff. The ethical ground truth already present in every NHS organisation. Not imported. Not generic. Yours.</div>
-          </div>
+          <div><div class="layer-name">Co-Produced Trust Values</div><div class="layer-desc">Developed with patients, carers, and staff. The ethical ground truth already present in every NHS organisation. Not imported. Not generic. Yours.</div></div>
         </div>
       </div>
 
-      <!-- Challenges -->
-      <h2>Challenges and Honest Caveats</h2>
-      <div class="callout" style="background:#F5F5F5;border-color:var(--muted);">
-        <div class="callout-title" style="color:var(--muted);">A note on intellectual honesty</div>
+      <h2 class="reveal">Challenges and Honest Caveats</h2>
+      <div class="callout callout-neutral reveal">
+        <div class="callout-label">A note on intellectual honesty</div>
         <p>A framework that does not acknowledge its own constraints is not a framework — it is a pitch.</p>
       </div>
 
-      <ol class="numbered-list">
-        <li>
-          <span class="num">01</span>
-          <div><strong>Vendor API access is the critical dependency.</strong> EHR vendors do not routinely expose the interaction-level data required to monitor HITL integrity. This must become a standard procurement condition for all AI system deployments. Without it, runtime monitoring is not possible.</div>
-        </li>
-        <li>
-          <span class="num">02</span>
-          <div><strong>Latency risk in emergency contexts.</strong> Any pre-execution governance step that introduces delay is itself a patient safety risk. The framework described here operates primarily through passive monitoring and post-hoc alerting, not execution blocking. The distinction matters and must be preserved in implementation.</div>
-        </li>
-        <li>
-          <span class="num">03</span>
-          <div><strong>Encoding ethics is technically hard and politically contested.</strong> What counts as 'genuine' human oversight? Organisations will disagree. Computable rules require precision, and precision exposes choices that vague policies conceal. This is a feature, not a bug — but it requires clinical and IG leadership, not just technical teams.</div>
-        </li>
-        <li>
-          <span class="num">04</span>
-          <div><strong>This space is not empty.</strong> NHS England's AI and Digital Regulations Service, the MHRA's SaMD framework, and the NHS AI Lab's model monitoring workstreams are all developing in this territory. Any implementation must build from, and contribute to, these national efforts — not replicate them in silos.</div>
-        </li>
-        <li>
-          <span class="num">05</span>
-          <div><strong>Workforce readiness is a governance precondition.</strong> A monitoring layer deployed into a team that has not been engaged, educated, and involved in its design will be experienced as surveillance. Clinical engagement is not a communications step. It is a safety requirement.</div>
-        </li>
+      <ol class="caveats reveal">
+        <li class="caveat"><span class="caveat-num">01</span><div class="caveat-body"><strong>Vendor API access is the critical dependency.</strong> EHR vendors do not routinely expose the interaction-level data required to monitor HITL integrity. This must become a standard procurement condition. Without it, runtime monitoring is not possible.</div></li>
+        <li class="caveat"><span class="caveat-num">02</span><div class="caveat-body"><strong>Latency risk in emergency contexts.</strong> Any pre-execution governance step that introduces delay is itself a patient safety risk. The framework operates primarily through passive monitoring and post-hoc alerting — not execution blocking. The distinction must be preserved.</div></li>
+        <li class="caveat"><span class="caveat-num">03</span><div class="caveat-body"><strong>Encoding ethics is technically hard and politically contested.</strong> Computable rules require precision, and precision exposes choices that vague policies conceal. This is a feature — but it requires clinical and IG leadership, not just technical teams.</div></li>
+        <li class="caveat"><span class="caveat-num">04</span><div class="caveat-body"><strong>This space is not empty.</strong> NHS England's AI and Digital Regulations Service, MHRA's SaMD framework, and the NHS AI Lab's model monitoring workstreams are all active. Any implementation must build from — and contribute to — these national efforts.</div></li>
+        <li class="caveat"><span class="caveat-num">05</span><div class="caveat-body"><strong>Workforce readiness is a governance precondition.</strong> A monitoring layer deployed into a team not involved in its design will be experienced as surveillance. Clinical engagement is not a communications step — it is a safety requirement.</div></li>
       </ol>
 
-      <!-- Call to Action -->
-      <h2>A Call for System-Level Action</h2>
-      <p>The NHS does not lack commitment to ethical AI. It lacks a coherent method for translating that commitment into demonstrable, real-time conduct. This framework proposes a practical path forward — not through new values, but through the more demanding work of taking existing values seriously.</p>
-      <p>Three things would move this forward at system level:</p>
+      <h2 class="reveal">A Call for System-Level Action</h2>
+      <p class="reveal">The NHS does not lack commitment to ethical AI. It lacks a coherent method for translating that commitment into demonstrable, real-time conduct. Three things would move this forward:</p>
 
-      <div class="callout" style="margin-bottom:1rem;">
-        <div class="callout-title">Ask 01 — Mandate vendor API transparency</div>
+      <div class="callout reveal">
+        <div class="callout-label">Ask 01 — Mandate vendor API transparency</div>
         <p>Governance cannot monitor what it cannot see. Make interaction-level data a standard condition of all NHS AI deployment contracts.</p>
       </div>
-      <div class="callout" style="margin-bottom:1rem;">
-        <div class="callout-title">Ask 02 — Commission a national equity monitoring standard</div>
-        <p>Individual trusts should not have to design this alone. AI performance must be monitored disaggregated by ethnicity, age, deprivation index, and gender — as a national minimum.</p>
+      <div class="callout reveal">
+        <div class="callout-label">Ask 02 — Commission a national equity monitoring standard</div>
+        <p>Individual trusts should not design this alone. AI performance must be monitored disaggregated by ethnicity, age, deprivation index, and gender — as a national minimum.</p>
       </div>
-      <div class="callout" style="margin-bottom:2rem;">
-        <div class="callout-title">Ask 03 — Build a shared computable policy library</div>
-        <p>A repository of live governance rules mapped to DCB0129/0160 requirements, adapted from clinical safety community expertise. The clinical safety community should lead this — they have the depth.</p>
+      <div class="callout reveal">
+        <div class="callout-label">Ask 03 — Build a shared computable policy library</div>
+        <p>A repository of live governance rules mapped to DCB0129/0160 requirements. The clinical safety community should lead this — they have the depth.</p>
       </div>
 
-      <div class="pull-quote">
+      <div class="pull-quote reveal">
         "Governance that cannot distinguish between performed compliance and genuine human oversight is not governance. It is documentation. NHS patients deserve the difference."
       </div>
 
-    </div><!-- /paper-body -->
+    </div>
   </div>
 </section>
 
-<!-- ── WORK / CLINAUDIT ── -->
-<section class="work-section" id="work">
-  <div class="section-wide">
-    <div class="work-label">Work in Practice</div>
-    <p class="work-intro">The thinking above, built into working software.</p>
-    <a href="https://clinaudit-ai-mu.vercel.app/" target="_blank" rel="noopener" class="work-card">
-      <div>
-        <div class="work-card-tag">Concept Demo · NHS Clinical AI Governance</div>
-        <h3>ClinAudit AI — v3.1</h3>
-        <p>A concept platform demonstrating end-to-end AI governance audit for NHS organisations — from pre-procurement readiness gating through live deployment monitoring, equity signal detection, PSIRF-integrated incident management, and structured governance pack generation for DCSG, Ethics Committee, CQC, and board audiences. Includes shadow AI detection and NHS-adapted HAIP vendor disclosure framework.</p>
-        <div class="work-tags">
-          <span class="work-tag">DCB0129 / DCB0160</span>
-          <span class="work-tag">ISO/IEC 42001</span>
-          <span class="work-tag">BS 30440:2023</span>
-          <span class="work-tag">MHRA SaMD</span>
-          <span class="work-tag">CERSI-AI</span>
-          <span class="work-tag">PSIRF</span>
-          <span class="work-tag">Equity Monitoring</span>
-          <span class="work-tag">Shadow AI</span>
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="work-inner">
+    <div class="section-eyebrow reveal">Work in Practice</div>
+    <h2 class="work-heading reveal">The thinking above,<br/><em>built into working software.</em></h2>
+    <a href="https://clinaudit-ai-mu.vercel.app/" target="_blank" rel="noopener" class="card reveal">
+      <div class="card-inner">
+        <div>
+          <div class="card-tag">Concept Demo · NHS Clinical AI Governance</div>
+          <h3>ClinAudit AI</h3>
+          <p>End-to-end AI governance audit for NHS organisations — from pre-procurement readiness gating through live deployment monitoring, equity signal detection, PSIRF-integrated incident management, and structured governance pack generation for DCSG, Ethics Committee, CQC, and board audiences. Includes shadow AI detection and NHS-adapted HAIP vendor disclosure framework.</p>
+          <div class="tag-list">
+            <span class="tag">DCB0129/0160</span>
+            <span class="tag">ISO/IEC 42001</span>
+            <span class="tag">BS 30440</span>
+            <span class="tag">MHRA SaMD</span>
+            <span class="tag">PSIRF</span>
+            <span class="tag">Equity Monitoring</span>
+            <span class="tag">Shadow AI</span>
+          </div>
         </div>
+        <span class="card-arrow">↗</span>
       </div>
-      <span class="work-card-arrow">↗</span>
     </a>
   </div>
 </section>
 
-<!-- ── ENGAGE ── -->
+<!-- ENGAGE -->
 <section class="engage" id="engage">
   <div class="engage-inner">
-    <div>
+    <div class="reveal">
+      <div class="section-eyebrow" style="--c-sky:#A8C4EC;">Availability</div>
       <h2>Available for<br/><em>senior engagements</em><br/>from May 2026.</h2>
-      <p>I bring over two decades of NHS leadership, deep clinical safety authorship, and a track record of building things that work in the real world — not just the pilot.</p>
-      <div class="engage-links">
-        <a href="https://www.LinkedIn.com/in/amanisarah" target="_blank" rel="noopener" class="engage-link">
-          <span class="engage-link-icon">in</span>
-          <div class="engage-link-body">
-            <div class="engage-link-title">Connect on LinkedIn</div>
-            <div class="engage-link-sub">linkedin.com/in/amanisarah</div>
-          </div>
-        </a>
-      </div>
+      <p>Two decades of NHS leadership, deep clinical safety authorship, and a track record of building things that work in the real world — not just the pilot.</p>
+      <a href="https://www.LinkedIn.com/in/amanisarah" target="_blank" rel="noopener" class="engage-link">
+        <div class="link-icon">in</div>
+        <div>
+          <div class="link-title">Connect on LinkedIn</div>
+          <div class="link-sub">linkedin.com/in/amanisarah</div>
+        </div>
+      </a>
     </div>
-    <div class="engage-right">
+    <div class="reveal">
+      <div class="roles-heading">Roles of Interest</div>
       <ul class="roles">
         <li>Chief Nursing Information Officer (CNIO)</li>
         <li>Chief Clinical Information Officer (CCIO)</li>
         <li>Digital Clinical Safety Lead</li>
-        <li>AI Governance Lead / AI Safety Officer</li>
+        <li>AI Governance &amp; Safety Lead</li>
         <li>Clinical Informatics Programme Director</li>
         <li>EPR / EHR Clinical Lead</li>
         <li>Freelance Delivery Lead — digital health</li>
       </ul>
-      <div class="rate-note">
+      <div class="rate-box">
         Available for <strong>permanent, interim, and freelance</strong> engagements.<br/>
-        Day rate: <strong>£400–£500</strong> depending on scope and duration.
+        Day rate <strong>£400–£500</strong> depending on scope and duration.
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
 <footer>
-  <p>Sarah Amani · NHS Digital Health Leader · RMN · linkedin.com/in/amanisarah · May 2026</p>
+  <p>Sarah Amani · RMN · NHS Digital Health Leader · linkedin.com/in/amanisarah · 2026</p>
 </footer>
 
 <script>
-// reading progress bar
-const bar = document.getElementById('progress');
+// ── Progress bar — transform:scaleX only (GPU, no layout)
+const bar = document.getElementById('bar');
 window.addEventListener('scroll', () => {
-  const h = document.documentElement;
-  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-  bar.style.width = pct + '%';
-});
+  const d = document.documentElement;
+  const pct = d.scrollTop / (d.scrollHeight - d.clientHeight);
+  bar.style.transform = `scaleX(${pct})`;
+}, { passive: true });
 
-// scroll reveal
-const reveals = document.querySelectorAll('.reveal');
+// ── Scroll reveal — IntersectionObserver, root margin keeps
+//    elements hidden until meaningfully in view
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
   });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => io.observe(el));
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
 
-// stagger paper body paragraphs on first reveal
-document.querySelectorAll('.paper-body > *').forEach((el, i) => {
-  el.style.transitionDelay = `${Math.min(i * 0.04, 0.3)}s`;
-  el.classList.add('reveal');
-  io.observe(el);
-});
+document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
 </script>
 </body>
 </html>
