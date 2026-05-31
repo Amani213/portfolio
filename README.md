@@ -1,4 +1,3 @@
-# portfolio
 ![Role](https://img.shields.io/badge/Role-Chief_Nursing_Information_Officer-005EB8)
 ![Expertise](https://img.shields.io/badge/Expertise-Clinical_AI_Governance-41B6E6)
 ![Registration](https://img.shields.io/badge/NMC-01B1028E-brightgreen)
@@ -57,4 +56,3 @@ Founder, **Kwathu Breakfast Club & Nursery School**, Malawi
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2)](https://linkedin.com/in/YOUR-LINKEDIN)
 [![Email](https://img.shields.io/badge/Email-Get_in_touch-D14836)](mailto:YOUR-EMAIL)
-
