@@ -9,7 +9,7 @@
 
 > *"I build things that work in the real world — not just the pilot."*
 
-Registered Mental Health Nurse (NMC: 01B1028E) | Topol Digital Fellow | Former CNIO, Dorset HealthCare
+Registered Mental Health Nurse (NMC: 01B1028E) | Topol Digital Fellow | Former CNIO
 
 ---
 
