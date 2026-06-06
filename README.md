@@ -55,4 +55,4 @@ Founder, **Kwathu Breakfast Club & Nursery School**, Malawi
 ## 📬 Connect
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2)](https://linkedin.com/in/YOUR-LINKEDIN)
-[![Email](https://img.shields.io/badge/Email-Get_in_touch-D14836)](mailto:YOUR-EMAIL)
+[![Email](https://img.shields.io/badge/Email-Get_in_touch-D14836)](mailto:sarah.amani@icloud.com)
