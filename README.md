@@ -5,7 +5,7 @@
 ![Standards](https://img.shields.io/badge/DCB0129%2F0160-Clinical_Safety_Author-orange)
 ![NHS](https://img.shields.io/badge/NHS-22+_Years-005EB8)
 
-# Sarah Amani — NHS Digital Health Leader & Clinical AI Governance Expert
+# Sarah Amani — Digital Health Leader & Clinical AI Governance Expert
 
 > *"I build things that work in the real world — not just the pilot."*
 
