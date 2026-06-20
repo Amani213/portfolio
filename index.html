@@ -243,7 +243,7 @@ nav {
 /* lower hero: two columns */
 .hero-lower {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.2fr;
+  grid-template-columns: 1fr 1fr 2fr;
   border-top: 1px solid var(--line-2);
 }
 .hero-left {
@@ -259,7 +259,9 @@ nav {
   border-right: 1px solid var(--line-2);
   display: flex; align-items: center; justify-content: center;
 }
-.hero-mid svg { width: 100%; max-width: 240px; height: auto; display: block; }
+.hero-mid a { display: block; line-height: 0; text-decoration: none; transition: opacity 160ms ease; }
+.hero-mid svg { width: 100%; max-width: 300px; height: auto; display: block; }
+@media (hover: hover) and (pointer: fine) { .hero-mid a:hover { opacity: 0.82; } }
 .hero-right {
   padding: 2rem var(--gut);
   display: flex; flex-direction: column; justify-content: center;
@@ -678,21 +680,33 @@ footer a { color: var(--orange); text-decoration: none; }
       </div>
     </div>
     <div class="hero-mid reveal">
-      <svg viewBox="0 0 260 300" role="img" aria-label="Values-anchored governance model: layered from co-produced values up through policy, monitoring, alerting and assurance">
-        <rect x="6" y="6" width="8" height="8" fill="var(--orange)"/>
-        <rect x="246" y="286" width="8" height="8" fill="var(--orange)"/>
-        <rect x="24" y="22" width="212" height="40" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
-        <text x="130" y="47" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="15" letter-spacing="1" fill="var(--ink)">ASSURE</text>
-        <rect x="24" y="70" width="212" height="40" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
-        <text x="130" y="95" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="15" letter-spacing="1" fill="var(--ink)">ALERT</text>
-        <rect x="24" y="118" width="212" height="40" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
-        <text x="130" y="143" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="15" letter-spacing="1" fill="var(--ink)">MONITOR</text>
-        <rect x="24" y="166" width="212" height="40" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
-        <text x="130" y="191" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="15" letter-spacing="1" fill="var(--ink)">POLICY</text>
-        <rect x="24" y="214" width="212" height="40" fill="var(--orange)"/>
-        <text x="130" y="239" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="700" font-size="15" letter-spacing="1" fill="var(--ink)">VALUES</text>
-        <text x="130" y="284" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" letter-spacing="2" fill="var(--muted)">VALUES-ANCHORED MODEL</text>
+      <a href="https://values-anchored-ai-governance.vercel.app" target="_blank" rel="noopener" aria-label="Read the position paper: the values-anchored governance cycle">
+      <svg viewBox="0 0 280 290" role="img" aria-label="Values-anchored governance cycle: values, policy, monitor, alert, assure, looping back to values">
+        <defs>
+          <marker id="arr" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L6,3 L0,6 Z" fill="var(--ink)"/>
+          </marker>
+        </defs>
+        <path d="M162.3,45.8 A92,92 0 0 1 218,86.2" fill="none" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <path d="M231.8,128.6 A92,92 0 0 1 210.5,194.1" fill="none" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <path d="M174.5,220.3 A92,92 0 0 1 105.5,220.3" fill="none" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <path d="M69.5,194.1 A92,92 0 0 1 48.2,128.6" fill="none" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <path d="M62,86.2 A92,92 0 0 1 117.7,45.8" fill="none" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="136" y="131" width="8" height="8" fill="var(--orange)"/>
+        <rect x="100" y="30" width="80" height="26" fill="var(--orange)"/>
+        <text x="140" y="47" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="700" font-size="12" letter-spacing="0.5" fill="var(--ink)">VALUES</text>
+        <rect x="187.5" y="93.6" width="80" height="26" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+        <text x="227.5" y="110.6" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="12" letter-spacing="0.5" fill="var(--ink)">POLICY</text>
+        <rect x="154.1" y="196.4" width="80" height="26" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+        <text x="194.1" y="213.4" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="12" letter-spacing="0.5" fill="var(--ink)">MONITOR</text>
+        <rect x="45.9" y="196.4" width="80" height="26" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+        <text x="85.9" y="213.4" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="12" letter-spacing="0.5" fill="var(--ink)">ALERT</text>
+        <rect x="12.5" y="93.6" width="80" height="26" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.5"/>
+        <text x="52.5" y="110.6" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="12" letter-spacing="0.5" fill="var(--ink)">ASSURE</text>
+        <text x="140" y="255" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" letter-spacing="2" fill="var(--muted)">VALUES-ANCHORED MODEL</text>
+        <text x="140" y="274" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="10" letter-spacing="1.5" fill="var(--orange-d)">↗ READ THE POSITION PAPER</text>
       </svg>
+      </a>
     </div>
     <div class="hero-right stagger">
       <div class="stat"><span class="stat-num">22+</span><span class="stat-lbl">Years NHS<br/>experience</span></div>
