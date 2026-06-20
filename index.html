@@ -243,7 +243,7 @@ nav {
 /* lower hero: two columns */
 .hero-lower {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1.2fr;
   border-top: 1px solid var(--line-2);
 }
 .hero-left {
@@ -254,6 +254,12 @@ nav {
   font-family: var(--mono); font-size: 1.02rem; line-height: 1.7;
   max-width: 30ch; margin-bottom: 2rem; color: var(--ink);
 }
+.hero-mid {
+  padding: 2rem var(--gut);
+  border-right: 1px solid var(--line-2);
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-mid svg { width: 100%; max-width: 240px; height: auto; display: block; }
 .hero-right {
   padding: 2rem var(--gut);
   display: flex; flex-direction: column; justify-content: center;
@@ -606,6 +612,7 @@ footer a { color: var(--orange); text-decoration: none; }
   .nav-links { display: none; }
   .hero-lower { grid-template-columns: 1fr; }
   .hero-left { border-right: none; border-bottom: 1px solid var(--line-2); }
+  .hero-mid { border-right: none; border-bottom: 1px solid var(--line-2); padding: 2.5rem var(--gut); }
   .hero-headline { font-size: clamp(2.6rem, 16vw, 5rem); white-space: normal; }
   .about { grid-template-columns: 1fr; }
   .about-l { border-right: none; border-bottom: 1px solid var(--line-2); }
@@ -669,6 +676,23 @@ footer a { color: var(--orange); text-decoration: none; }
         <a href="#paper" class="btn">Read the paper</a>
         <a href="#projects" class="btn btn-ghost">View projects</a>
       </div>
+    </div>
+    <div class="hero-mid reveal">
+      <svg viewBox="0 0 260 300" role="img" aria-label="Values-anchored governance model: layered from co-produced values up through policy, monitoring, alerting and assurance">
+        <rect x="6" y="6" width="8" height="8" fill="var(--orange)"/>
+        <rect x="246" y="286" width="8" height="8" fill="var(--orange)"/>
+        <rect x="24" y="22" width="212" height="40" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+        <text x="130" y="47" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="15" letter-spacing="1" fill="var(--ink)">ASSURE</text>
+        <rect x="24" y="70" width="212" height="40" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+        <text x="130" y="95" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="15" letter-spacing="1" fill="var(--ink)">ALERT</text>
+        <rect x="24" y="118" width="212" height="40" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+        <text x="130" y="143" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="15" letter-spacing="1" fill="var(--ink)">MONITOR</text>
+        <rect x="24" y="166" width="212" height="40" fill="none" stroke="var(--ink)" stroke-width="1.5"/>
+        <text x="130" y="191" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="600" font-size="15" letter-spacing="1" fill="var(--ink)">POLICY</text>
+        <rect x="24" y="214" width="212" height="40" fill="var(--orange)"/>
+        <text x="130" y="239" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="700" font-size="15" letter-spacing="1" fill="var(--ink)">VALUES</text>
+        <text x="130" y="284" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" letter-spacing="2" fill="var(--muted)">VALUES-ANCHORED MODEL</text>
+      </svg>
     </div>
     <div class="hero-right stagger">
       <div class="stat"><span class="stat-num">22+</span><span class="stat-lbl">Years NHS<br/>experience</span></div>
